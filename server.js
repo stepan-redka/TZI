@@ -1,12 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const rateLimit = require('express-rate-limit'); // Імпортуємо express-rate-limit
+const rateLimit = require('express-rate-limit'); 
 
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// Підключення до MongoDB
 const mongoURI = 'mongodb+srv://stepanredka17:mongodb@cluster0.1jrdk.mongodb.net/sample_mflix?retryWrites=true&w=majority';
 mongoose.connect(mongoURI)
     .then(() => {

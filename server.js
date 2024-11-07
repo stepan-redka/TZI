@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 // Підключення до MongoDB
-const mongoURI = 'mongodb+srv://stepanredka17:mongodb@cluster0.1jrdk.mongodb.net/formdata?retryWrites=true&w=majority';
+const mongoURI = 'mongodb+srv://stepanredka17:mongodb@cluster0.1jrdk.mongodb.net/sample_mflix?retryWrites=true&w=majority';
 mongoose.connect(mongoURI)
     .then(() => {
         console.log('Connected to MongoDB');

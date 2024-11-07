@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit'); // Додаємо пакет для лімітування
 
 const app = express();
 const PORT = process.env.PORT || 10000;
@@ -25,6 +26,14 @@ const FormData = mongoose.model('FormData', formDataSchema);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());  // Додаємо підтримку JSON
 app.use(express.static('public'));
+
+// Встановлення ліміту на кількість запитів
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 хвилин
+    max: 100, // обмежує до 100 запитів з однієї IP-адреси за цей період
+    message: 'Занадто багато запитів, спробуйте пізніше.'
+});
+app.use(limiter);
 
 // Маршрут для обробки даних з форми
 app.post('/submit', async (req, res) => {

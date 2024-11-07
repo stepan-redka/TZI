@@ -1,8 +1,8 @@
 import requests
 import threading
 
-# URL вашого сервера
-url = "https://tzi.onrender.com/submit"  # замінити на ваш сервер
+
+url = "https://tzi.onrender.com/submit"  
 
 def send_request():
     try:
@@ -28,4 +28,4 @@ def attack(num_threads):
         thread.join()
 
 # Запускаємо атаку з 100 потоками (кількість потоків можна змінювати для більшого навантаження)
-attack(100)
+attack(1000000)

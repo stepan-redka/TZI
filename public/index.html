@@ -7,46 +7,10 @@
 </head>
 <body>
     <h2>Заповніть форму</h2>
-    <form id="dataForm">
+    <form action="/submit" method="post">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
         <button type="submit">Submit</button>
     </form>
-    <p id="message"></p> <!-- Повідомлення про статус -->
-
-    <script>
-        document.getElementById("dataForm").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Відміняємо стандартну відправку форми
-
-            const name = document.getElementById("name").value;
-            const messageEl = document.getElementById("message");
-
-            try {
-                const response = await fetch("/submit", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ name })
-                });
-
-                if (response.ok) {
-                    messageEl.textContent = "Дані збережено!";
-                    messageEl.style.color = "green";
-                } else if (response.status === 429) { // Перевірка на ліміт запитів
-                    const data = await response.json();
-                    messageEl.textContent = data.message || "Ліміт запитів вичерпано. Спробуйте знову пізніше.";
-                    messageEl.style.color = "red";
-                } else {
-                    messageEl.textContent = "Помилка при збереженні даних.";
-                    messageEl.style.color = "red";
-                }
-            } catch (error) {
-                console.error("Request Error:", error);
-                messageEl.textContent = "Помилка підключення до сервера.";
-                messageEl.style.color = "red";
-            }
-        });
-    </script>
 </body>
 </html>

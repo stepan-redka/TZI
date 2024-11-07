@@ -27,5 +27,4 @@ def attack(num_threads):
     for thread in threads:
         thread.join()
 
-# Запускаємо атаку з 100 потоками (кількість потоків можна змінювати для більшого навантаження)
 attack(1000000)

@@ -7,10 +7,51 @@
 </head>
 <body>
     <h2>Заповніть форму</h2>
-    <form action="/submit" method="post">
+    <form id="dataForm">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
         <button type="submit">Submit</button>
     </form>
+
+    <!-- Виведення повідомлення про результат -->
+    <p id="responseMessage"></p>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Запобігаємо перезавантаженню сторінки
+
+            const name = document.getElementById('name').value;
+            const responseMessage = document.getElementById('responseMessage');
+            responseMessage.textContent = 'Відправка запиту...';
+
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name })
+                });
+
+                if (response.ok) {
+                    const message = await response.text();
+                    responseMessage.textContent = message; // Відображаємо повідомлення від сервера
+                    responseMessage.style.color = 'green';
+                } else if (response.status === 429) {
+                    responseMessage.textContent = 'Занадто багато запитів. Спробуйте пізніше.';
+                    responseMessage.style.color = 'red';
+                } else {
+                    responseMessage.textContent = 'Помилка при збереженні даних.';
+                    responseMessage.style.color = 'red';
+                }
+            } catch (error) {
+                responseMessage.textContent = 'Помилка при підключенні до сервера.';
+                responseMessage.style.color = 'red';
+                console.error('Fetch error:', error);
+            }
+
+            document.getElementById('dataForm').reset(); // Очищаємо форму після відправки
+        });
+    </script>
 </body>
 </html>

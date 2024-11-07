@@ -7,7 +7,7 @@ url = "https://tzi.onrender.com/submit"
 def send_request():
     try:
         # Відправляємо POST запит із випадковими даними
-        data = {'name': 'Playbook_Job'}
+        data = {'name': 'DDOS'}
         print("Sending request...")
         response = requests.post(url, data=data)
         print(f"Status Code: {response.status_code}")

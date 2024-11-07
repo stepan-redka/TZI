@@ -22,6 +22,8 @@ const FormData = mongoose.model('FormData', formDataSchema);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+app.set('trust proxy', 1);  // Дозволяє довіряти проксі-серверам
+
 // Налаштовуємо ліміт для запитів (100 запитів за 10 секунд)
 const limiter = rateLimit({
   windowMs: 10 * 1000, // 10 секунд

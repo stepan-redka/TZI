@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit'); // Додаємо бібліотеку для обмеження запитів
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,17 @@ const FormData = mongoose.model('FormData', formDataSchema);
 // Налаштування для отримання POST-запитів у форматі JSON
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
+// Налаштовуємо ліміт для запитів (100 запитів за 10 секунд)
+const limiter = rateLimit({
+  windowMs: 10 * 1000, // 10 секунд
+  max: 100, // ліміт 100 запитів за 10 секунд
+  message: 'Too many requests, please try again later.', // повідомлення про перевищення ліміту
+  statusCode: 500 // код помилки для перевищення ліміту
+});
+
+// Застосовуємо ліміт на всі POST запити
+app.use('/submit', limiter);
 
 // Маршрут для обробки даних з форми
 app.post('/submit', async (req, res) => {

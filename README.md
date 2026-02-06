@@ -2,7 +2,7 @@
 
 This repository contains a small experimental project built with **Node.js** and a simple **web frontend**.
 
-The main goal of this project was to **practically understand what a DDoS attack is**, how it works at a high level, and how servers behave under abnormal or excessive traffic — purely from a **learning and research perspective**.
+The main goal of this project was to **practically understand what a DDoS attack is**, how it works at a high level, and how servers behave, under abnormal or excessive traffic — purely from a **learning and research perspective**.
 
 The project includes:
 - a basic Node.js server (`server.js`)
